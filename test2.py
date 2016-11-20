@@ -1,26 +1,15 @@
-import pandas as pd
 import numpy as np
-import sklearn.model_selection as sms
-import sklearn.linear_model as sl
-import sklearn.svm as ss
-
-ds = pd.read_csv('c:/ML/Data/breastc.data',names=['ID','label','x1','x2','x3','x4','x5','x6','x7','x8','x9'])
-ds.drop('ID',1,inplace=True)
-
-ds.drop(ds[ds.x5.str.contains(r'[?]')].index,0,inplace=True)
-# print(ds.ix[ds.x5.str.contains(r'[?]')])
-# print(ds.dtypes)
-# print(ds.shape)
-#
-X = ds.drop('label',1)
-y = ds['label']
-
-X_train,X_test,y_train,y_test = sms.train_test_split(X,y,test_size=0.2)
-
-clf = sl.LinearRegression()
-clf.fit(X_train,y_train)
-scr = clf.score(X_test,y_test)
-
-print(scr)
 
 
+# Random floats
+# sampl = np.random.uniform(low=1,high=130,size=40)
+
+# Random Ints
+# sampl = np.random.random_integers(low=1,high=130,size=30)
+# print(sampl)
+
+table1 = [1,2,3,4,5,66,78,78,32,1,2]
+
+table2 = [x for x in range(len(table1))]
+
+print(table2)

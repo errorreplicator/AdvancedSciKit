@@ -1,31 +1,32 @@
-import pandas as pd
-import math
+from sklearn.metrics import classification_report
+import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn import model_selection
-from sklearn.linear_model import LinearRegression
 
+days = [1,2,3,4,5,6,7]
 
-X, y = np.arange(200).reshape((100,2)), range(100)
-# print(X)
-# print(list(y))
-X_train, X_test, y_train,y_test =  model_selection.train_test_split(X,y,test_size=0.2)
+sleeping = [7,6,7,8,5,9,10]
+eating = [2,3,1,1,2,2,3]
+playing = [7,6,9,9,7,12,11]
+working = [8,9,7,9,10,1,0]
 
+eage = np.random.random_integers(low=5,high=100,size=50)
+eage2 = np.random.random_integers(low=101,high=200,size=50)
 
-clf = LinearRegression()
-clf.fit(X_train,y_train)
-accu = clf.score(X_test,y_test)
-print(accu)
-print(X_train)
-# print(X_test)
-#
-print(y_train)
-# print(y_test)
+#index of integers from 0 to len(eage) or this can be ranve(any_number_in_here) range(100)
+ids = [x for x in range(len(eage))]
 
-# ds = pd.read_csv('C:/ML/Data/breastc.data')
-#
-# print(len(ds))
-# print(ds.size)
-# print(ds.shape)
-# print(math.ceil(0.01*len(ds)))
-# print(ds.head())
+buckets = [0,10,20,30,40,50,60,70,80,90,100]
+# plt.hist(eage,buckets,histtype='bar')
+# plt.scatter(eage,ids,color='b',marker='*',s=30)
+# plt.scatter(eage2,ids,color='r',marker='+',s=50)
+
+# plt.stackplot(days,sleeping,eating,playing,working,colors=['y','g','b','c'])
+
+# pie chart
+slices = [4,5,1,11]
+act = ['act1','act2','act3','act4']
+plt.pie(slices,labels=act,colors=['c','m','w','y'])
+
+# plt.bar(eage,ids)
+plt.show()
+
