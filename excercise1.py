@@ -17,10 +17,12 @@ y = ds['label']
 X_train, X_test, y_train, y_test = sms.train_test_split(X,y,test_size=0.2)
 
 clf = sl.LinearRegression()
-clf.fit(X_train,y_train)
+# clf.fit(X_train,y_train)
+# pd.to_pickle(clf,'LRclf.pickle')
+clf = pd.read_pickle('LRClf.pickle')
 scr = clf.score(X_test,y_test)
 expected = y_test
 predicted = clf.predict(X_test)
 
-print(sm.classification_report(expected,predicted,target_names=['class 0', 'class 1', 'class 2']))
+# print(sm.classification_report(expected,predicted,target_names=['class 0', 'class 1', 'class 2']))
 print(scr)
