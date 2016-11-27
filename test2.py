@@ -1,59 +1,35 @@
-import numpy as np
 import pandas as pd
-# Random floats
-# sampl = np.random.uniform(low=1,high=130,size=40)
+import numpy as np
 
-# Random Ints
-# sampl = np.random.random_integers(low=1,high=130,size=30)
-# print(sampl)
+desired_width = 320
+pd.set_option('display.width', desired_width)
 
-table1 = [1,2,3,4,5,66,78,78,32,1,2]
+# ds = pd.read_csv('https://s3.amazonaws.com/content.udacity-data.com/courses/ud359/titanic_data.csv')
+# ds.to_pickle('Titan.data')
+ds = pd.read_pickle('Titan.data')
+ds = pd.DataFrame(ds)
+ds_titan = ds[['PassengerId','Sex']]
+ds_titan = pd.DataFrame(ds_titan)
+# ds_titan['Prediction'] = ""
 
-table2 = [x for x in range(len(table1))]
+def funkcja (c):
+    if c['Sex'] == 'male':
+        return 1
+    else:
+        return 0
 
-# print(table2)
-# x = 1
-# for x in range(15):
-#     print(x, '\t')
-#     print(x**x)
+def realF (a):
+    if (a['Sex'] == 'female' or a['Pclass'] == 3 or a['Age'] < 18):
+        return 1
+    else:
+        return 0
 
-# x = 2
-# myarray = list()
-# while (x<=10):
-#     myarray.append(x)
-#     x+=1
-#     if(x == 5):
-#         print('Jest piec')
+ds_titan['Prediction'] = ds_titan.apply(funkcja,axis=1)
+ds_titan['Pclass'] = ds['Pclass']
+ds['Age'].fillna(0,inplace=True)
+ds_titan['Age'] = ds['Age'].astype(np.int16)
+ds_titan['SurvivalRate'] = ds_titan.apply(realF,axis=1)
+print(ds_titan.head(15))
+# ds_titan = pd.DataFrame(ds[['PassengerID','Sex']])
 
-
-myarray = np.arange(0,10)
-myarray2 = np.arange(0,15)
-
-print(myarray.mean())
-
-df = pd.DataFrame({'Col1': pd.Series(myarray),
-                   'Co;2': pd.Series(myarray2)})
-
-# print(df.applymap(lambda x: x>=5))
-
-countries = ['Russian Fed.', 'Norway', 'Canada', 'United States',
-             'Netherlands', 'Germany', 'Switzerland', 'Belarus',
-             'Austria', 'France', 'Poland', 'China', 'Korea',
-             'Sweden', 'Czech Republic', 'Slovenia', 'Japan',
-             'Finland', 'Great Britain', 'Ukraine', 'Slovakia',
-             'Italy', 'Latvia', 'Australia', 'Croatia', 'Kazakhstan']
-
-gold = [13, 11, 10, 9, 8, 8, 6, 5, 4, 4, 4, 3, 3, 2, 2, 2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0]
-silver = [11, 5, 10, 7, 7, 6, 3, 0, 8, 4, 1, 4, 3, 7, 4, 2, 4, 3, 1, 0, 0, 2, 2, 2, 1, 0]
-bronze = [9, 10, 5, 12, 9, 5, 2, 1, 5, 7, 1, 2, 2, 6, 2, 4, 3, 1, 2, 1, 0, 6, 2, 1, 0, 1]
-
-olympic_medal_counts = {'country_name': pd.Series(countries),
-                        'gold': pd.Series(gold),
-                        'silver': pd.Series(silver),
-                        'bronze': pd.Series(bronze)}
-df = pd.DataFrame(olympic_medal_counts)
-df2 = pd.DataFrame()
-df2['bronze'] = df['bronze'][df['gold'] >= 1]
-avg_bronze_at_least_one_gold = np.mean(df2['bronze'])
-
-print(avg_bronze_at_least_one_gold)
+# print(ds_titan.head())
